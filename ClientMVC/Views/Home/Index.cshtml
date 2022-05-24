@@ -16,6 +16,9 @@
                 @Html.DisplayNameFor(model => model.FlightNo)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Departure)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Destination)
             </th>
             <th>
@@ -34,16 +37,12 @@
                 @Html.DisplayFor(modelItem => item.FlightNo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Destination)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.FlightNo">Details</a>
             </td>
         </tr>
 }

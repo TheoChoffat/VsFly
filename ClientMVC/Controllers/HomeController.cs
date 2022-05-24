@@ -18,9 +18,7 @@ namespace ClientMVC.Controllers
 
         private readonly IVSFlyServices _vsFly;
 
-        private readonly IOptions<UtilityModel> appSettings;
-
-        public HomeController(ILogger<HomeController> logger, IVSFlyServices vsFly, IOptions<UtilityModel> app)
+        public HomeController(ILogger<HomeController> logger, IVSFlyServices vsFly)
         {
             _logger = logger;
             appSettings = app;
@@ -34,13 +32,10 @@ namespace ClientMVC.Controllers
             return View(listFlights);
         }
 
-        public async Task<IActionResult> Details(int id)
         {
-            var flight = await _vsFly.GetFlight(id);
-            return View(flight);
         }
 
-            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
