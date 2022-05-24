@@ -32,7 +32,9 @@ namespace ClientMVC.Controllers
             return View(listFlights);
         }
 
+        public IActionResult Privacy()
         {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
