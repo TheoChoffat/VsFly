@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSFly_Final", "VSFly_Final\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSFlyWebApi", "VSFlyWebApi\VSFlyWebApi.csproj", "{6EEF164C-1B89-4A02-8611-418532C096AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientMVC", "ClientMVC\ClientMVC.csproj", "{8D29EDAB-B15E-4932-AEB4-107CE1C3AA11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientMVC", "ClientMVC\ClientMVC.csproj", "{8D29EDAB-B15E-4932-AEB4-107CE1C3AA11}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6EEF164C-1B89-4A02-8611-418532C096AC} = {6EEF164C-1B89-4A02-8611-418532C096AC}
 		{C3C2C99F-63F4-483F-8C9D-4A51500BB763} = {C3C2C99F-63F4-483F-8C9D-4A51500BB763}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client2WebApp", "Client2WebApp\Client2WebApp.csproj", "{D021AA52-6575-4616-8F68-80234B6B23C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{8D29EDAB-B15E-4932-AEB4-107CE1C3AA11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D29EDAB-B15E-4932-AEB4-107CE1C3AA11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D29EDAB-B15E-4932-AEB4-107CE1C3AA11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D021AA52-6575-4616-8F68-80234B6B23C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D021AA52-6575-4616-8F68-80234B6B23C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D021AA52-6575-4616-8F68-80234B6B23C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D021AA52-6575-4616-8F68-80234B6B23C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
