@@ -31,7 +31,8 @@ namespace VSFly
                 Date = new DateTime(2022, 08, 12),
                 PilotId = 1,
                 FreeSeats = 20,
-                pilot = p
+                pilot = p,
+                Price = 200
 
             };
 
