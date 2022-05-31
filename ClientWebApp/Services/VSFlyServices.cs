@@ -1,12 +1,14 @@
-﻿using ClientMVC.Models;
+﻿using ClientWebApp.Models;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ClientMVC.Services
+namespace ClientWebApp.Services
 {
-    public class VSFlyServices : IVSFlyServices
+    public class VSFlyServices
     {
         private readonly HttpClient _client;
         private readonly string _baseuri;
@@ -14,15 +16,15 @@ namespace ClientMVC.Services
         public VSFlyServices(HttpClient client)
         {
             _client = client;
-            _baseuri = "https://localhost:44336/api/"; //44381
+            _baseuri = "https://localhost:44336/api/";
 
         }
-        public async Task<IEnumerable<FlightModel>> GetFlights()
+        public async Task<IEnumerable<FlightsModel>> GetFlights()
         {
             var uri = _baseuri + "Flights";
 
             var responseString = await _client.GetStringAsync(uri);
-            var fligthList = JsonConvert.DeserializeObject<IEnumerable<FlightModel>>(responseString);
+            var fligthList = JsonConvert.DeserializeObject<IEnumerable<FlightsModel>>(responseString);
             return fligthList;
         }
     }
