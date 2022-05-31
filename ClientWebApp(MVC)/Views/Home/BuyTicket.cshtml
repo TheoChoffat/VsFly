@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<ClientWebApp_MVC_.Models.FlightModels>
 
 @{
-    ViewData["Title"] = "FlightsIndex";
+    ViewData["Title"] = "BuyTicket";
 }
 
-<h1>Flights</h1>
+<h1>BuyTicket</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -37,8 +37,9 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.FlightNo">Details</a> |
-                @Html.ActionLink("Buy", "Buy", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }

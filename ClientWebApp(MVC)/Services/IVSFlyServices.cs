@@ -9,5 +9,6 @@ namespace ClientWebApp_MVC_.Services
         public interface IVSFlyServices
         {
             public Task<IEnumerable<FlightModels>> GetFlights();
-        }
+            public Task<FlightModels> GetFlight(int id);
+    }
     }

@@ -1,4 +1,5 @@
-﻿using ClientWebApp_MVC_.Models;
+﻿using ClientWebApp_MVC_.Client;
+using ClientWebApp_MVC_.Models;
 using ClientWebApp_MVC_.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -28,6 +29,18 @@ namespace ClientWebApp_MVC_.Controllers
             return View(listFlights);
         }
 
+        public async Task<IActionResult> Details(int id)
+        {
+            var flight = await _vsFly.GetFlight(id);
+            return View(flight);
+        }
+
+        public async Task<IActionResult> GetFlight(int id)
+        {
+            var flight = await _vsFly.GetFlight(id);
+            return View(flight);
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -38,6 +51,28 @@ namespace ClientWebApp_MVC_.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Buy()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Buy([Bind("PassengerId, Surnname, Firstname, FK_FlightNo, Price")]PassengerModel passenger, double price, int id, string surname, string firstname)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        passenger.Price = price;
+        //        passenger.FK_Flight_No = id;
+        //        passenger.Firstname = firstname;
+        //        passenger.Surname = surname;
+
+        //        var data = await APIClientClient.Instance.SavePassenger(passenger);
+        //    }
+
+
+        //}
     }
 
 }

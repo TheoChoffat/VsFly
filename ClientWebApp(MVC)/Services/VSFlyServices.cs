@@ -27,5 +27,16 @@ namespace ClientWebApp_MVC_.Services
                 var fligthList = JsonConvert.DeserializeObject<IEnumerable<FlightModels>>(responseString);
                 return fligthList;
             }
+
+            public async Task<FlightModels> GetFlight(int id)
+             {
+            var uri = _baseuri + "Flights/" + id;
+            var responseString = await _client.GetStringAsync(uri);
+            var flight = JsonConvert.DeserializeObject<FlightModels>(responseString);
+
+            return flight;
+             }
+
+
         }
     }

@@ -80,7 +80,8 @@ namespace VSFlyWebApi.Controllers
             _context.FlightSet.Add(flight);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFlight", new { id = flight.FlightNo }, flight);
+            return CreatedAtAction(nameof(GetFlightSet), new { id = flight.FlightNo }, flight);
+            //return CreatedAtAction("GetFlight", new { id = flight.FlightNo }, flight);
         }
 
         // DELETE: api/Flights/5
