@@ -1,3 +1,4 @@
+using ClientWebApp_MVC_.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,6 +24,7 @@ namespace ClientWebApp_MVC_
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<IVSFlyServices, VSFlyServices>();
             services.AddControllersWithViews();
         }
 
