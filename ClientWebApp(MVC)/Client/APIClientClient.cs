@@ -16,6 +16,11 @@ namespace ClientWebApp_MVC_.Client
           () => new APIClient(apiUri),
           LazyThreadSafetyMode.ExecutionAndPublication);
 
+        static APIClientClient()
+        {
+            apiUri = new Uri(Services.ApplicationSettings.WebApiUrl);
+        }
+
         public static APIClient Instance
         {
             get

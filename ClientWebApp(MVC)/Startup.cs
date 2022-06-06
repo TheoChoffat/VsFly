@@ -1,3 +1,4 @@
+using ClientWebApp_MVC_.Models;
 using ClientWebApp_MVC_.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +27,7 @@ namespace ClientWebApp_MVC_
         {
             services.AddHttpClient<IVSFlyServices, VSFlyServices>();
             services.AddControllersWithViews();
+            services.Configure<UtilityModel>(Configuration.GetSection("MyUtility"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

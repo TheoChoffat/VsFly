@@ -30,18 +30,43 @@ namespace ClientWebApp_MVC_.Controllers
         }
 
 
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    var listFlights = await _vsFly.GetFlights();
+        //    return View(listFlights);
+        //}
+
+        public async Task<IActionResult> IndexAsync()
         {
-            var listFlights = await _vsFly.GetFlights();
-            return View(listFlights);
+            var data = await APIClientClient.Instance.GetFlights();
+            return View(data);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var flight = await _vsFly.GetFlight(id);
-            return View(flight);
+            //var flight = await _vsFly.GetFlight(id);
+            //return View(flight);
 
+            {
+                if (id == -1)
+                {
+                    return NotFound();
+                }
+
+
+                var data = await APIClientClient.Instance.GetFlight(id);
+
+                ViewBag.price = data.Price;
+
+                if (data == null)
+                {
+                    return NotFound();
+                }
+
+                return View(data);
             }
+
+        }
 
             [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
