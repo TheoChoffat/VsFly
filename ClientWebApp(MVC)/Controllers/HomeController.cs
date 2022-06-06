@@ -3,6 +3,7 @@ using ClientWebApp_MVC_.Models;
 using ClientWebApp_MVC_.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,13 +16,19 @@ namespace ClientWebApp_MVC_.Controllers
     {
 
         private readonly ILogger<HomeController> _logger;
+
         private readonly IVSFlyServices _vsFly;
 
-        public HomeController(ILogger<HomeController> logger, IVSFlyServices vsFly)
+        private readonly IOptions<UtilityModel> appSettings;
+
+        public HomeController(ILogger<HomeController> logger, IVSFlyServices vsFly, IOptions<UtilityModel> app)
         {
             _logger = logger;
+            appSettings = app;
             _vsFly = vsFly;
+            ApplicationSettings.WebApiUrl = appSettings.Value.WebApiUrl;
         }
+
 
         public async Task<IActionResult> Index()
         {
@@ -33,6 +40,13 @@ namespace ClientWebApp_MVC_.Controllers
         {
             var flight = await _vsFly.GetFlight(id);
             return View(flight);
+
+            }
+
+            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         public async Task<IActionResult> GetFlight(int id)
@@ -46,33 +60,28 @@ namespace ClientWebApp_MVC_.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         public IActionResult Buy()
         {
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Buy([Bind("PassengerId, Surnname, Firstname, FK_FlightNo, Price")]PassengerModel passenger, double price, int id, string surname, string firstname)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        passenger.Price = price;
-        //        passenger.FK_Flight_No = id;
-        //        passenger.Firstname = firstname;
-        //        passenger.Surname = surname;
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Buy([Bind("Surnname, Firstname, FK_FlightNo, Price, PassengerId")] PassengerModel passenger, double price, int id, string surname, string firstname)
+        {
+            if (ModelState.IsValid)
+            {
+                passenger.Price = price;
+                passenger.FK_Flight_No = id;
+                passenger.Firstname = firstname;
+                passenger.Surname = surname;
 
-        //        var data = await APIClientClient.Instance.SavePassenger(passenger);
-        //    }
+                var data = await APIClientClient.Instance.SavePassenger(passenger);
+                return RedirectToAction(nameof(Buy));
+            }
 
-
-        //}
+            return View(passenger);
+        }
     }
 
 }

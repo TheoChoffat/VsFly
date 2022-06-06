@@ -15,6 +15,6 @@ namespace VSFly
         public string FlightSchool { get; set; }
         public DateTime LicenseDate { get; set; }
        
-        public virtual ICollection<Flight> FlightAsPilotSet { get; set; }
+        public virtual ICollection<FlightModels> FlightAsPilotSet { get; set; }
     }
 }
