@@ -23,7 +23,7 @@ namespace VSFly
 
             Pilot p = ctx.PilotSet.Where(p => p.Surname == "Emilie Teodoro").FirstOrDefault();
 
-            Flight f1 = new Flight()
+            FlightModels f1 = new FlightModels()
             {
                 Seats = 100,
                 Departure = "PAY",
@@ -47,7 +47,7 @@ namespace VSFly
 
             Console.WriteLine("======================");
 
-            foreach (Flight flight in ctx.FlightSet)
+            foreach (FlightModels flight in ctx.FlightSet)
             {
                 Console.WriteLine("Date: {0} Destination: {1} Seats: {2}", flight.Date, flight.Destination, flight.Seats);
             }

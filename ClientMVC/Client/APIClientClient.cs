@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ClientWebApp_MVC_.Services;
 
 namespace ClientWebApp_MVC_.Client
 {
@@ -15,17 +16,14 @@ namespace ClientWebApp_MVC_.Client
           () => new APIClient(apiUri),
           LazyThreadSafetyMode.ExecutionAndPublication);
 
-        //static APIClientClient()
-        //{
-        //    apiUri = new Uri(ApplicationSettings.WebApiUrl);
-        //}
-
         public static APIClient Instance
         {
             get
             {
                 return restClient.Value;
             }
+
         }
+
     }
 }

@@ -22,14 +22,14 @@ namespace VSFlyWebApi.Controllers
 
         // GET: api/Flights
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Flight>>> GetFlightSet()
+        public async Task<ActionResult<IEnumerable<FlightModels>>> GetFlightSet()
         {
             return await _context.FlightSet.ToListAsync();
         }
 
         // GET: api/Flights/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Flight>> GetFlight(int id)
+        public async Task<ActionResult<FlightModels>> GetFlight(int id)
         {
             var flight = await _context.FlightSet.FindAsync(id);
 
@@ -44,7 +44,7 @@ namespace VSFlyWebApi.Controllers
         // PUT: api/Flights/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFlight(int id, Flight flight)
+        public async Task<IActionResult> PutFlight(int id, FlightModels flight)
         {
             if (id != flight.FlightNo)
             {
@@ -75,7 +75,7 @@ namespace VSFlyWebApi.Controllers
         // POST: api/Flights
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Flight>> PostFlight(Flight flight)
+        public async Task<ActionResult<FlightModels>> PostFlight(FlightModels flight)
         {
             _context.FlightSet.Add(flight);
             await _context.SaveChangesAsync();

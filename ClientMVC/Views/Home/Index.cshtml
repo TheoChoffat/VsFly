@@ -21,6 +21,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -37,8 +40,10 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.FlightNo">Details</a> |
-                @Html.ActionLink("Buy", "Buy", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.FlightNo">Details</a>
             </td>
         </tr>
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace VSFly
 {
     [Table("Flight")]
-    public partial class Flight
+    public partial class FlightModels
     {
 
         public DateTime Date { get; set; }

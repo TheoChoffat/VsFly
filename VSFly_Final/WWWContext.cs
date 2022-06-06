@@ -9,7 +9,7 @@ namespace VSFly
 
 
 	public virtual DbSet<Booking> BookingSet { get; set; }
-		public virtual DbSet<Flight> FlightSet { get; set; }
+		public virtual DbSet<FlightModels> FlightSet { get; set; }
 		public virtual DbSet<Passenger> PassengerSet { get; set; }
 		public virtual DbSet<Pilot> PilotSet { get; set; }
 
