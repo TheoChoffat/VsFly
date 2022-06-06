@@ -38,8 +38,7 @@ namespace ClientMVC.Controllers
         {
             var flight = await _vsFly.GetFlight(id);
             return View(flight);
-
-            }
+        }
 
             [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -63,20 +62,23 @@ namespace ClientMVC.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Buy([Bind("Surnname, Firstname, FK_FlightNo, Price, PassengerId")] PassengerModel passenger, double price, int id, string surname, string firstname)
-        {
-            if (ModelState.IsValid)
-            {
-                passenger.Price = price;
-                passenger.FK_Flight_No = id;
-                passenger.Firstname = firstname;
-                passenger.Surname = surname;
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Buy([Bind("PassengerId, Surnname, Firstname, FK_FlightNo, Price")]PassengerModel passenger, double price, int id, string surname, string firstname)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        passenger.Price = price;
+        //        passenger.FK_Flight_No = id;
+        //        passenger.Firstname = firstname;
+        //        passenger.Surname = surname;
 
-                var data = await APIClientClient.Instance.SavePassenger(passenger);
-                return RedirectToAction(nameof(Buy));
-            }
+        //        var data = await APIClientClient.Instance.SavePassenger(passenger);
+        //    }
+
+
+        //}
+    }
 
             return View(passenger);
         }
