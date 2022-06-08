@@ -1,11 +1,14 @@
 ﻿@model IEnumerable<ClientWebApp_MVC_.Models.FlightModels>
 
 @{
-    ViewData["Title"] = "FlightsIndex";
+    ViewData["Title"] = "BuyTicket";
 }
 
-<h1>Flights available</h1>
+<h1>BuyTicket</h1>
 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -13,16 +16,10 @@
                 @Html.DisplayNameFor(model => model.FlightNo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Departure)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Destination)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th></th>
         </tr>
@@ -34,19 +31,15 @@
                 @Html.DisplayFor(modelItem => item.FlightNo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Departure)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Destination)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.FlightNo">Details</a>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }
