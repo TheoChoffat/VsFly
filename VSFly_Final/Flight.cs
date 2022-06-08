@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace VSFly
 {
     [Table("Flight")]
-    public partial class FlightModels
+    public partial class Flight
     {
 
         public DateTime Date { get; set; }
@@ -18,7 +18,7 @@ namespace VSFly
         [Key]
         public int FlightNo { get; set; }
         public int SeatsAvailable { get; set; }
-        public int Price { get; set; }
+        public double Price { get; set; }
         public int Seats { get; set; }
 
         [ForeignKey("PilotId")]

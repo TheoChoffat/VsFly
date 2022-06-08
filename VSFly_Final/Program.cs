@@ -18,12 +18,12 @@ namespace VSFly
                 Surname = "Emilie Teodoro",
                 Salary = 10000
             };
-            ctx.PilotSet.Add(pilot1);
+            ctx.Pilot.Add(pilot1);
             ctx.SaveChanges();
 
-            Pilot p = ctx.PilotSet.Where(p => p.Surname == "Emilie Teodoro").FirstOrDefault();
+            Pilot p = ctx.Pilot.Where(p => p.Surname == "Emilie Teodoro").FirstOrDefault();
 
-            FlightModels f1 = new FlightModels()
+            Flight f1 = new Flight()
             {
                 Seats = 100,
                 Departure = "PAY",
@@ -36,7 +36,7 @@ namespace VSFly
 
             };
 
-            ctx.FlightSet.Add(f1);
+            ctx.Flight.Add(f1);
 
             ctx.SaveChanges();
 
@@ -48,7 +48,7 @@ namespace VSFly
 
             Console.WriteLine("======================");
 
-            foreach (FlightModels flight in ctx.FlightSet)
+            foreach (Flight flight in ctx.Flight)
             {
                 Console.WriteLine("Date: {0} Destination: {1} Seats: {2}", flight.Date, flight.Destination, flight.Seats);
             }
@@ -57,9 +57,9 @@ namespace VSFly
 
             Passenger passenger2 = new Passenger { Surname = "Morel", Firstname = "Benjamin" };
 
-            ctx.PassengerSet.Add(passenger1);
+            ctx.Passenger.Add(passenger1);
 
-            ctx.PassengerSet.Add(passenger2);
+            ctx.Passenger.Add(passenger2);
 
             ctx.SaveChanges();
 
@@ -67,14 +67,14 @@ namespace VSFly
             Console.WriteLine(passenger1.Surname + " " + passenger1.Firstname);
 
 
-            Booking book1 = new Booking { Flight = ctx.FlightSet.Find(1), Passenger = passenger1 };
+            Booking book1 = new Booking { Flight = ctx.Flight.Find(1), Passenger = passenger1 };
 
-            Booking book2 = new Booking { Flight = ctx.FlightSet.Find(1), Passenger = passenger2 };
+            Booking book2 = new Booking { Flight = ctx.Flight.Find(1), Passenger = passenger2 };
 
 
-            ctx.BookingSet.Add(book1);
+            ctx.Booking.Add(book1);
 
-            ctx.BookingSet.Add(book2);
+            ctx.Booking.Add(book2);
 
             ctx.SaveChanges();
 

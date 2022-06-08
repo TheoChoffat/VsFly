@@ -1,5 +1,4 @@
-﻿using ClientWebApp_MVC_.Client;
-using ClientWebApp_MVC_.Models;
+﻿using ClientWebApp_MVC_.Models;
 using ClientWebApp_MVC_.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -38,7 +37,7 @@ namespace ClientWebApp_MVC_.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-            var data = await APIClientClient.Instance.GetFlights();
+            var data = await _vsFly.GetFlights();
             return View(data);
         }
 
@@ -54,7 +53,7 @@ namespace ClientWebApp_MVC_.Controllers
                 }
 
 
-                var data = await APIClientClient.Instance.GetFlight(id);
+                var data = await _vsFly.GetFlight(id);
 
                 ViewBag.price = data.Price;
 
@@ -101,7 +100,6 @@ namespace ClientWebApp_MVC_.Controllers
                 passenger.Firstname = firstname;
                 passenger.Surname = surname;
 
-                var data = await APIClientClient.Instance.SavePassenger(passenger);
                 return RedirectToAction(nameof(Buy));
             }
 
