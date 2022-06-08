@@ -38,6 +38,32 @@ namespace VSFlyWebApi.Controllers
                 return NotFound();
             }
 
+            //If the airplane is more than 80% full regardless of the date:
+            if (flight.Seats / 100 * 20 > flight.SeatsAvailable)
+                flight.Price = flight.Price / 100 * 150;
+
+            else
+            {
+                //If the plane is filled less than 20 % less than 2 months before departure:
+                if (flight.Seats / 100 * 80 < flight.SeatsAvailable && (flight.Date - DateTime.Now).TotalDays < 60.0)
+                    flight.Price = flight.Price / 100 * 80;
+
+                else
+                {
+                    //If the plane is filled less than 50 % less than 1 month before departure:
+                    if (flight.Seats / 100 * 50 < flight.SeatsAvailable && (flight.Date - DateTime.Now).TotalDays < 30.0)
+                        flight.Price = flight.Price / 100 * 70;
+
+                    else
+                    {
+                        //In all other cases:
+                        flight.Price = flight.Price;
+                    }
+
+                }
+            }
+
+
             return flight;
         }
 

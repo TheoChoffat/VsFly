@@ -30,7 +30,7 @@ namespace VSFly
                 Destination = "LAX",
                 Date = new DateTime(2022, 08, 12),
                 PilotId = 1,
-                FreeSeats = 20,
+                SeatsAvailable = 20,
                 pilot = p,
                 Price = 200
 

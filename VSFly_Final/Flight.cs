@@ -17,7 +17,7 @@ namespace VSFly
         public String Destination { get; set; }
         [Key]
         public int FlightNo { get; set; }
-        public int FreeSeats { get; set; }
+        public int SeatsAvailable { get; set; }
         public int Price { get; set; }
         public int Seats { get; set; }
 
