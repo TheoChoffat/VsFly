@@ -35,5 +35,26 @@ namespace VSFlyWebApi.Extensions
             return f;
         }
 
+        public static VSFlyWebApi.Models.BookingModel ConvertToBookingM(this VSFly.Booking bk)
+        {
+            Models.BookingModel bm = new Models.BookingModel();
+            bm.FlightNo = bk.FlightNo;
+            bm.Flight = bk.Flight;
+            bm.Passenger = bk.Passenger;
+            bm.PassengerId = bk.PassengerId;
+           
+            return bm;
+        }
+
+        public static VSFly.Booking ConvertToBooking(this Models.BookingModel bm)
+        {
+            VSFly.Booking b = new VSFly.Booking();
+            b.FlightNo = bm.FlightNo;
+            b.Flight = bm.Flight;
+            b.Passenger = bm.Passenger;
+            b.PassengerId = bm.PassengerId;
+          
+            return b;
+        }
     }
 }

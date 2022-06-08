@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClientWebApp(MVC)\ClientWebApp(MVC).csproj" />
     <ProjectReference Include="..\VSFly_Final\VSFly_Final.csproj" />
   </ItemGroup>
 
