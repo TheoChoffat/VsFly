@@ -4,16 +4,16 @@
     ViewData["Title"] = "FlightsIndex";
 }
 
-<h1>Flights</h1>
+<h1>Flights available</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.FlightNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departure)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Destination)
@@ -32,6 +32,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FlightNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departure)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Destination)
