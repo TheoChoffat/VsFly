@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ClientWebApp_MVC_.Models.BookingModel>
+
+@{
+    ViewData["Title"] = "BookingList";
+}
+
+<h1>My bookings</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Passenger.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flight.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PassengerId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Passenger.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flight.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassengerId)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.FlightNo">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

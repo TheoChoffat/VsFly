@@ -1,5 +1,4 @@
-﻿using ClientWebApp_MVC_.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VSFly;
 using VSFlyWebApi.Extensions;
+using VSFlyWebApi.Models;
 
 namespace VSFlyWebApi.Controllers
 {
@@ -21,6 +21,7 @@ namespace VSFlyWebApi.Controllers
             _context = context;
         }
 
+
         [HttpGet("All")]
         public async Task<ActionResult<IEnumerable<BookingModel>>> GetBookings()
         {
@@ -29,16 +30,11 @@ namespace VSFlyWebApi.Controllers
             List<BookingModel> bookingMList = new List<BookingModel>();
             foreach (Booking f in bookingList)
             {
-                //    //Check if flight have free seats
-                //    if (f.SeatsAvailable != 0)
-                //    {
-                //        var FM = f.ConvertToFlightM();
-                //        FM.Price = getFlightPrice(f.Seats, f.SeatsAvailable, f.Date, f.Price);
-
-                //        flightMList.Add(FM);
-                //    }
-                //}
+                var BM = f.ConvertToBookingM();
+                bookingMList.Add(BM);
             }
+
+
 
             return bookingMList;
         }
@@ -46,16 +42,27 @@ namespace VSFlyWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BookingModel>> GetBooking(int id)
         {
-            var booking = await _context.Flight.FindAsync(id);
+            var booking = await _context.Booking.FindAsync(id);
 
             if (booking == null)
             {
                 return NotFound();
             }
 
-            FlightModels model = booking.ConvertToFlightM();
-            model.Price = getFlightPrice(flight.Seats, flight.SeatsAvailable, flight.Date, flight.Price);
+            BookingModel model = booking.ConvertToBookingM();
             return model;
         }
+
+        [HttpPost]
+        public async Task<ActionResult<BookingModel>> PostBooking(BookingModel booking)
+        {
+            Booking booking1 = booking.ConvertToBooking();
+            _context.Booking.Add(booking1);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetBooking), new { id = booking.FlightNo }, booking);
+        }
+
+
     }
 }

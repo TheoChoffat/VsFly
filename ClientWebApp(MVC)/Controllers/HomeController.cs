@@ -29,22 +29,20 @@ namespace ClientWebApp_MVC_.Controllers
         }
 
 
-        //public async Task<IActionResult> Index()
-        //{
-        //    var listFlights = await _vsFly.GetFlights();
-        //    return View(listFlights);
-        //}
-
         public async Task<IActionResult> IndexAsync()
         {
             var data = await _vsFly.GetFlights();
             return View(data);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> BookingList()
         {
-            //var flight = await _vsFly.GetFlight(id);
-            //return View(flight);
+            var data = await _vsFly.GetBookings();
+            return View(data);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {  
 
             {
                 if (id == -1)
@@ -79,15 +77,6 @@ namespace ClientWebApp_MVC_.Controllers
             return View(flight);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        public IActionResult Buy()
-        {
-            return View();
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

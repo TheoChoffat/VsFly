@@ -53,33 +53,31 @@ namespace VSFly
                 Console.WriteLine("Date: {0} Destination: {1} Seats: {2}", flight.Date, flight.Destination, flight.Seats);
             }
 
-            Passenger passenger1 = new Passenger { Surname = "Vouillamoz", Firstname = "Hugo" };
+            Passenger passenger3 = new Passenger { Surname = "Papilloud", Firstname = "Doriane" };
 
-            Passenger passenger2 = new Passenger { Surname = "Morel", Firstname = "Benjamin" };
+            Passenger passenger4 = new Passenger { Surname = "Solliard", Firstname = "Mégane" };
 
-            ctx.Passenger.Add(passenger1);
+            ctx.Passenger.Add(passenger3);
 
-            ctx.Passenger.Add(passenger2);
+            ctx.Passenger.Add(passenger4);
+
+            ctx.SaveChanges();
+
+           
+
+            Booking book3 = new Booking { Flight = ctx.Flight.Find(1), Passenger = passenger3 };
+
+            Booking book4 = new Booking { Flight = ctx.Flight.Find(1), Passenger = passenger4 };
+
+
+            ctx.Booking.Add(book3);
+
+            ctx.Booking.Add(book4);
 
             ctx.SaveChanges();
 
             Console.WriteLine("======================");
-            Console.WriteLine(passenger1.Surname + " " + passenger1.Firstname);
-
-
-            Booking book1 = new Booking { Flight = ctx.Flight.Find(1), Passenger = passenger1 };
-
-            Booking book2 = new Booking { Flight = ctx.Flight.Find(1), Passenger = passenger2 };
-
-
-            ctx.Booking.Add(book1);
-
-            ctx.Booking.Add(book2);
-
-            ctx.SaveChanges();
-
-            Console.WriteLine("======================");
-            Console.WriteLine(book1.FlightNo + " " + passenger1.Firstname);
+            Console.WriteLine(book3.FlightNo + " " + passenger4.Firstname);
 
 
         }

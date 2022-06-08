@@ -51,7 +51,9 @@ namespace VSFlyWebApi.Extensions
             VSFly.Booking b = new VSFly.Booking();
             b.FlightNo = bm.FlightNo;
             b.Flight = bm.Flight;
+            b.Flight.Destination = bm.Flight.Destination;
             b.Passenger = bm.Passenger;
+            b.Passenger.Surname = bm.Passenger.Surname;
             b.PassengerId = bm.PassengerId;
           
             return b;
