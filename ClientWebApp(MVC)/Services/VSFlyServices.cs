@@ -39,6 +39,15 @@ namespace ClientWebApp_MVC_.Services
             return bookingList;
         }
 
+        //public async Task<IEnumerable<BookingModel>> Buy()
+        //{
+        //    var uri = _baseuri + "Booking/All";
+
+        //    var responseString = await _client.GetStringAsync(uri);
+        //    var bookingList = JsonConvert.DeserializeObject<IEnumerable<BookingModel>>(responseString);
+        //    return bookingList;
+        //}
+
         public async Task<FlightModels> GetFlight(int id)
         {
             var uri = _baseuri + "Flights/" + id;
@@ -86,7 +95,6 @@ namespace ClientWebApp_MVC_.Services
                     return false;
                 }
             }
-
 
         }
 }

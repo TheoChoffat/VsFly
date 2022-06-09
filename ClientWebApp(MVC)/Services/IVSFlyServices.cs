@@ -10,6 +10,7 @@ namespace ClientWebApp_MVC_.Services
         {
             public Task<IEnumerable<FlightModels>> GetFlights();
             public Task<IEnumerable<BookingModel>> GetBookings();
+            //public Task<IEnumerable<BookingModel>> Buy();
             public Task<FlightModels> GetFlight(int id);
     }
     }

@@ -1,5 +1,7 @@
-﻿using ClientWebApp_MVC_.Models;
+﻿
+using ClientWebApp_MVC_.Models;
 using ClientWebApp_MVC_.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -60,7 +62,13 @@ namespace ClientWebApp_MVC_.Controllers
                     return NotFound();
                 }
 
-                return View(data);
+                var myBook = new BuyTicketModel();
+                myBook.FlightNo = data.FlightNo;
+                myBook.Destination = data.Destination;
+                myBook.Date = data.Date;
+
+
+                return View(myBook);
             }
 
         }
@@ -80,19 +88,22 @@ namespace ClientWebApp_MVC_.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Buy([Bind("Surnname, Firstname, FK_FlightNo, Price, PassengerId")] PassengerModel passenger, double price, int id, string surname, string firstname)
+        public async Task<IActionResult> Buy(IFormCollection collection)
         {
+            BuyTicketModel ticketModel = new();
+
             if (ModelState.IsValid)
             {
-                passenger.Price = price;
-                passenger.FK_Flight_No = id;
-                passenger.Firstname = firstname;
-                passenger.Surname = surname;
+               
+                ticketModel.FullName = collection["FullName"];
+                ticketModel.Destination = collection["Destination"];
+                ticketModel.Date = Convert.ToDateTime(collection["Date"]);
+                ticketModel.FlightNo = Int32.Parse(collection["FlightNo"]);
 
-                return RedirectToAction(nameof(Buy));
+              
             }
 
-            return View(passenger);
+            return View(ticketModel);
         }
     }
 

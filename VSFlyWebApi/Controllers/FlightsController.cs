@@ -22,15 +22,7 @@ namespace VSFlyWebApi.Controllers
             _context = context;
         }
 
-        // GET: api/Flights
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Flight>>> GetFlightSet()
-        //{
-        //    return await _context.FlightSet.ToListAsync();
-        //}
-
-        //Display all flights still available
-        // GET: api/Flights
+  
         [HttpGet ("All")]
         public async Task<ActionResult<IEnumerable<FlightModels>>> GetFlights()
         {
@@ -165,5 +157,7 @@ namespace VSFlyWebApi.Controllers
         {
             return _context.Flight.Any(e => e.FlightNo == id);
         }
+
+
     }
 }

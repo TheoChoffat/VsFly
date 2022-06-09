@@ -11,6 +11,8 @@ namespace VSFly
     [Table("Pilot")]
     public partial class Pilot:Employee
     {
+        [Key]
+        public int PilotId { get; set; }
         public DateTime FlightHours { get; set; }
         public string FlightSchool { get; set; }
         public DateTime LicenseDate { get; set; }
