@@ -53,6 +53,16 @@ namespace VSFlyWebApi.Controllers
             return model;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<BookingModel>> PostBooking(BookingModel booking)
+        {
+            Booking booking1 = booking.ConvertToBooking();
+            _context.Booking.Add(booking1);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetBooking), new { id = booking.FlightNo }, booking);
+        }
+
 
 
     }
