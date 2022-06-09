@@ -39,15 +39,6 @@ namespace ClientWebApp_MVC_.Services
             return bookingList;
         }
 
-        //public async Task<IEnumerable<BookingModel>> Buy()
-        //{
-        //    var uri = _baseuri + "Booking/All";
-
-        //    var responseString = await _client.GetStringAsync(uri);
-        //    var bookingList = JsonConvert.DeserializeObject<IEnumerable<BookingModel>>(responseString);
-        //    return bookingList;
-        //}
-
         public async Task<FlightModels> GetFlight(int id)
         {
             var uri = _baseuri + "Flights/" + id;
@@ -55,6 +46,43 @@ namespace ClientWebApp_MVC_.Services
             var flight = JsonConvert.DeserializeObject<FlightModels>(responseString);
 
             return flight;
+        }
+
+        public async Task<PassengerModel> GetPassenger(int id)
+        {
+            var uri = _baseuri + "Passenger/" + id;
+            var responseString = await _client.GetStringAsync(uri);
+            var passenger = JsonConvert.DeserializeObject<PassengerModel>(responseString);
+
+            return passenger;
+        }
+
+        public async Task<IEnumerable<PassengerModel>> GetPassengers()
+        {
+            var uri = _baseuri + "Passenger/All";
+
+            var responseString = await _client.GetStringAsync(uri);
+            var passengerList = JsonConvert.DeserializeObject<IEnumerable<PassengerModel>>(responseString);
+            return passengerList;
+        }
+
+        [HttpPost]
+        public Boolean CreatePassenger(PassengerModel passengerModels)
+        {
+            var uri = _baseuri + "Passenger/";
+
+            var postTask = _client.PostAsJsonAsync<PassengerModel>(uri, passengerModels);
+            postTask.Wait();
+
+            var result = postTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         [HttpPut]

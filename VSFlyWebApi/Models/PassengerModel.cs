@@ -10,6 +10,8 @@ namespace VSFlyWebApi.Models
     {
         public string Surname { get; set; }
         public string Firstname { get; set; }
+        public DateTime CustomerSince { get; set; }
+        public string Status { get; set; }
         public int FK_Flight_No { get; set; }
         public double Price { get; set; }
         [Key]

@@ -1,4 +1,4 @@
-﻿@model ClientWebApp_MVC_.Models.FlightModels
+﻿@model ClientWebApp_MVC_.Models.BuyTicketModel
 
 @{
     ViewData["Title"] = "DetailsFlight";
@@ -49,7 +49,6 @@
 </div>
 
 <div>
-
     @using (Html.BeginForm("Buy", "Home", new { id = Model.FlightNo, price = Model.Price }))
     {
         <label for="FullName">Name: </label><br>
