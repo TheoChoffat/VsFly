@@ -57,7 +57,7 @@
         <input type="text" id="Date" class="form-control" required="required" name="Date" value=" @Html.ValueFor(model => model.Date)" hidden="hidden" size="10"><br>
         <input type="text" id="FlightNo" class="form-control" required="required" name="FlightNo" value=" @Html.ValueFor(model => model.FlightNo)" hidden="hidden" size="10"><br>
 
-        <button class="button button" style="vertical-align:middle" onclick="@("window.location.href='" + @Url.Action("Buy", "Home") + "'");"><span>Buy this ticket </span></button>
+        <button class="button" style="vertical-align:middle" onclick="@("window.location.href='" + @Url.Action("Buy", "Home") + "'");"><span>Buy this ticket </span></button>
 
 
     }

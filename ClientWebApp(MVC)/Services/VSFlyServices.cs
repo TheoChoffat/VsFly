@@ -105,24 +105,24 @@ namespace ClientWebApp_MVC_.Services
 
         //}
 
-        //[HttpPost]
-        //    public Boolean CreateFlight(FlightModels flightModels)
-        //    {
-        //        var uri = _baseuri + "Flights/";
+        [HttpPost]
+        public Boolean CreateFlight(FlightModels flightModels)
+        {
+            var uri = _baseuri + "Flights/";
 
-        //        var postTask = _client.PostAsJsonAsync<FlightModels>(uri, flightModels);
-        //        postTask.Wait();
+            var postTask = _client.PostAsJsonAsync<FlightModels>(uri, flightModels);
+            postTask.Wait();
 
-        //        var result = postTask.Result;
-        //        if (result.IsSuccessStatusCode)
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-
+            var result = postTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+
+    }
 }

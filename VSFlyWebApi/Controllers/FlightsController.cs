@@ -22,8 +22,8 @@ namespace VSFlyWebApi.Controllers
             _context = context;
         }
 
-  
-        [HttpGet ("All")]
+
+        [HttpGet("All")]
         public async Task<ActionResult<IEnumerable<FlightModels>>> GetFlights()
         {
 
@@ -56,13 +56,13 @@ namespace VSFlyWebApi.Controllers
             }
 
             FlightModels model = flight.ConvertToFlightM();
-            model.Price=getFlightPrice(flight.Seats,  flight.SeatsAvailable, flight.Date, flight.Price );
+            model.Price = getFlightPrice(flight.Seats, flight.SeatsAvailable, flight.Date, flight.Price);
             return model;
         }
 
-        private double getFlightPrice (int Seats, int SeatsAvailable, DateTime Date, double Price)
+        private double getFlightPrice(int Seats, int SeatsAvailable, DateTime Date, double Price)
         {
-        
+
             //If the airplane is more than 80% full regardless of the date:
             if (Seats / 100 * 20 > SeatsAvailable)
                 Price = Price / 100 * 150;
@@ -133,30 +133,31 @@ namespace VSFlyWebApi.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetFlight), new { id = flight.FlightNo }, flight);
-           
+
         }
 
 
-    //    [HttpDelete("{id}")]
-    //    public async Task<IActionResult> DeleteFlight(int id)
-    //    {
-    //        var flight = await _context.Flight.FindAsync(id);
-    //        if (flight == null)
-    //        {
-    //            return NotFound();
-    //        }
+        //    [HttpDelete("{id}")]
+        //    public async Task<IActionResult> DeleteFlight(int id)
+        //    {
+        //        var flight = await _context.Flight.FindAsync(id);
+        //        if (flight == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-    //        _context.Flight.Remove(flight);
-    //        await _context.SaveChangesAsync();
+        //        _context.Flight.Remove(flight);
+        //        await _context.SaveChangesAsync();
 
-    //        return NoContent();
-    //    }
+        //        return NoContent();
+        //    }
 
-    //    private bool FlightExists(int id)
-    //    {
-    //        return _context.Flight.Any(e => e.FlightNo == id);
-    //    }
+        //    private bool FlightExists(int id)
+        //    {
+        //        return _context.Flight.Any(e => e.FlightNo == id);
+        //    }
 
 
-    //}
+        //}
+    }
 }
