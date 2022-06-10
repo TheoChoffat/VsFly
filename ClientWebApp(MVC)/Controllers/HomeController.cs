@@ -1,5 +1,7 @@
-﻿using ClientWebApp_MVC_.Models;
+﻿
+using ClientWebApp_MVC_.Models;
 using ClientWebApp_MVC_.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -35,10 +37,43 @@ namespace ClientWebApp_MVC_.Controllers
             return View(data);
         }
 
-        public async Task<IActionResult> BookingList()
+        public async Task<IActionResult> BookingList(BuyTicketModel buyTicketModel)
         {
-            var data = await _vsFly.GetBookings();
-            return View(data);
+           if (ModelState.IsValid)
+            {
+                ViewBag.FullName = buyTicketModel.FullName;
+                ViewBag.Destination = buyTicketModel.Destination;
+                ViewBag.Date = buyTicketModel.Date;
+                ViewBag.Price = buyTicketModel.Price;
+                ViewBag.Seats = buyTicketModel.Seats;
+                ViewBag.SeatsAvailable = buyTicketModel.SeatsAvailable;
+
+                List<BuyTicketModel> buyTicketM = new List<BuyTicketModel>();
+                var passenger = await _vsFly.GetPassengers();
+                Boolean Exists = false;
+                
+                for(int i=0; i < passenger.Count(); i++)
+                {
+                    if (buyTicketModel.FullName == passenger.ElementAt(i).Firstname)
+                    {
+                        Exists = true;
+
+                        buyTicketModel.FullName = passenger.ElementAt(i).Firstname;
+                        ViewBag.Exists = true;
+                    }
+                }
+
+                //Creation of the passenger
+                if (!Exists)
+                {
+                    var status = _vsFly.CreatePassenger(buyTicketModel.Passenger);
+                    if (status)
+                    {
+                        buyTicketModel.Passenger = passenger;
+                        ViewBag.Exists = false;
+                    }
+                }
+            }
         }
 
         public async Task<IActionResult> Details(int id)
@@ -60,7 +95,17 @@ namespace ClientWebApp_MVC_.Controllers
                     return NotFound();
                 }
 
-                return View(data);
+                var myBook = new BuyTicketModel();
+                myBook.FlightNo = data.FlightNo;
+                myBook.Destination = data.Destination;
+                myBook.Date = data.Date;
+                myBook.Price = data.Price;
+                myBook.Seats = data.Seats;
+                myBook.SeatsAvailable = data.SeatsAvailable;
+      
+
+
+                return View(myBook);
             }
 
         }
@@ -78,21 +123,33 @@ namespace ClientWebApp_MVC_.Controllers
         }
 
 
+        public async Task<IActionResult> GetPassenger(int id)
+        {
+            var flight = await _vsFly.GetPassenger(id);
+            return View(flight);
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Buy([Bind("Surnname, Firstname, FK_FlightNo, Price, PassengerId")] PassengerModel passenger, double price, int id, string surname, string firstname)
+        public async Task<IActionResult> Buy(IFormCollection collection)
         {
+            BuyTicketModel ticketModel = new();
+
             if (ModelState.IsValid)
             {
-                passenger.Price = price;
-                passenger.FK_Flight_No = id;
-                passenger.Firstname = firstname;
-                passenger.Surname = surname;
-
-                return RedirectToAction(nameof(Buy));
+               
+                ticketModel.FullName = collection["FullName"];
+                ticketModel.Destination = collection["Destination"];
+                ticketModel.Date = Convert.ToDateTime(collection["Date"]);
+                ticketModel.FlightNo = Int32.Parse(collection["FlightNo"]);
+                ticketModel.Price = Double.Parse(collection["Price"]);
+                ticketModel.Seats = Int32.Parse(collection["Seats"]);
+                ticketModel.SeatsAvailable = Int32.Parse(collection["SeatsAvailable"]);
+               
             }
 
-            return View(passenger);
+            return View(ticketModel);
         }
     }
 

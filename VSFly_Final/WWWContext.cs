@@ -9,7 +9,7 @@ namespace VSFly
 		public WWWContext() { }
 
 
-	public virtual DbSet<Booking> Booking { get; set; }
+		public virtual DbSet<Booking> Booking { get; set; }
 		public virtual DbSet<Flight> Flight { get; set; }
 		public virtual DbSet<Passenger> Passenger { get; set; }
 		public virtual DbSet<Pilot> Pilot { get; set; }

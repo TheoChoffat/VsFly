@@ -58,5 +58,25 @@ namespace VSFlyWebApi.Extensions
           
             return b;
         }
+
+        public static VSFlyWebApi.Models.PassengerModel ConvertToPassengerM(this VSFly.Passenger pk)
+        {
+            Models.PassengerModel pm = new Models.PassengerModel();
+            pm.PassengerId = pk.PassengerId;
+            pm.Surname = pk.Surname;
+            pm.Firstname = pk.Firstname;
+
+            return pm;
+        }
+
+        public static VSFly.Passenger ConvertToPassenger(this Models.PassengerModel pm)
+        {
+            VSFly.Passenger p = new VSFly.Passenger();
+            p.PassengerId = pm.PassengerId;
+            p.Surname = pm.Surname;
+            p.Firstname = pm.Firstname;
+
+            return p;
+        }
     }
 }

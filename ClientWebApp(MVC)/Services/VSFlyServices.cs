@@ -48,12 +48,30 @@ namespace ClientWebApp_MVC_.Services
             return flight;
         }
 
-        [HttpPut]
-        public Boolean UpdateFlight(FlightModels flightModels)
+        public async Task<PassengerModel> GetPassenger(int id)
         {
-            var uri = _baseuri + "Flights/UpdateFlight" + flightModels;
+            var uri = _baseuri + "Passenger/" + id;
+            var responseString = await _client.GetStringAsync(uri);
+            var passenger = JsonConvert.DeserializeObject<PassengerModel>(responseString);
 
-            var postTask = _client.PutAsJsonAsync<FlightModels>(uri, flightModels);
+            return passenger;
+        }
+
+        public async Task<IEnumerable<PassengerModel>> GetPassengers()
+        {
+            var uri = _baseuri + "Passenger/All";
+
+            var responseString = await _client.GetStringAsync(uri);
+            var passengerList = JsonConvert.DeserializeObject<IEnumerable<PassengerModel>>(responseString);
+            return passengerList;
+        }
+
+        [HttpPost]
+        public Boolean CreatePassenger(PassengerModel passengerModels)
+        {
+            var uri = _baseuri + "Passenger/";
+
+            var postTask = _client.PostAsJsonAsync<PassengerModel>(uri, passengerModels);
             postTask.Wait();
 
             var result = postTask.Result;
@@ -65,28 +83,46 @@ namespace ClientWebApp_MVC_.Services
             {
                 return false;
             }
-
         }
 
-            [HttpPost]
-            public Boolean CreateFlight(FlightModels flightModels)
+        //[HttpPut]
+        //public Boolean UpdateFlight(FlightModels flightModels)
+        //{
+        //    var uri = _baseuri + "Flights/UpdateFlight" + flightModels;
+
+        //    var postTask = _client.PutAsJsonAsync<FlightModels>(uri, flightModels);
+        //    postTask.Wait();
+
+        //    var result = postTask.Result;
+        //    if (result.IsSuccessStatusCode)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+
+        //}
+
+        [HttpPost]
+        public Boolean CreateFlight(FlightModels flightModels)
+        {
+            var uri = _baseuri + "Flights/";
+
+            var postTask = _client.PostAsJsonAsync<FlightModels>(uri, flightModels);
+            postTask.Wait();
+
+            var result = postTask.Result;
+            if (result.IsSuccessStatusCode)
             {
-                var uri = _baseuri + "Flights/";
-
-                var postTask = _client.PostAsJsonAsync<FlightModels>(uri, flightModels);
-                postTask.Wait();
-
-                var result = postTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
-
-
+            else
+            {
+                return false;
+            }
         }
+
+    }
 }

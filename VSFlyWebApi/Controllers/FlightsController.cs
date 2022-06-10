@@ -22,16 +22,8 @@ namespace VSFlyWebApi.Controllers
             _context = context;
         }
 
-        // GET: api/Flights
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Flight>>> GetFlightSet()
-        //{
-        //    return await _context.FlightSet.ToListAsync();
-        //}
 
-        //Display all flights still available
-        // GET: api/Flights
-        [HttpGet ("All")]
+        [HttpGet("All")]
         public async Task<ActionResult<IEnumerable<FlightModels>>> GetFlights()
         {
 
@@ -64,13 +56,13 @@ namespace VSFlyWebApi.Controllers
             }
 
             FlightModels model = flight.ConvertToFlightM();
-            model.Price=getFlightPrice(flight.Seats,  flight.SeatsAvailable, flight.Date, flight.Price );
+            model.Price = getFlightPrice(flight.Seats, flight.SeatsAvailable, flight.Date, flight.Price);
             return model;
         }
 
-        private double getFlightPrice (int Seats, int SeatsAvailable, DateTime Date, double Price)
+        private double getFlightPrice(int Seats, int SeatsAvailable, DateTime Date, double Price)
         {
-        
+
             //If the airplane is more than 80% full regardless of the date:
             if (Seats / 100 * 20 > SeatsAvailable)
                 Price = Price / 100 * 150;
@@ -100,36 +92,36 @@ namespace VSFlyWebApi.Controllers
             return Price;
         }
 
-        // PUT: api/Flights/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("UpdateFlight/{id}")]
-        public async Task<IActionResult> PutFlight(int id, FlightModels flight)
-        {
-            if (id != flight.FlightNo)
-            {
-                return BadRequest();
-            }
+        //// PUT: api/Flights/5
+        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPut("UpdateFlight/{id}")]
+        //public async Task<IActionResult> PutFlight(int id, FlightModels flight)
+        //{
+        //    if (id != flight.FlightNo)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(flight).State = EntityState.Modified;
+        //    _context.Entry(flight).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FlightExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!FlightExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         //POST: api/Flights
         //To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -141,29 +133,31 @@ namespace VSFlyWebApi.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetFlight), new { id = flight.FlightNo }, flight);
-           
+
         }
 
-        //DELETE: api/Flights/5
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFlight(int id)
-        {
-            var flight = await _context.Flight.FindAsync(id);
-            if (flight == null)
-            {
-                return NotFound();
-            }
+        //    [HttpDelete("{id}")]
+        //    public async Task<IActionResult> DeleteFlight(int id)
+        //    {
+        //        var flight = await _context.Flight.FindAsync(id);
+        //        if (flight == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-            _context.Flight.Remove(flight);
-            await _context.SaveChangesAsync();
+        //        _context.Flight.Remove(flight);
+        //        await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+        //        return NoContent();
+        //    }
 
-        private bool FlightExists(int id)
-        {
-            return _context.Flight.Any(e => e.FlightNo == id);
-        }
+        //    private bool FlightExists(int id)
+        //    {
+        //        return _context.Flight.Any(e => e.FlightNo == id);
+        //    }
+
+
+        //}
     }
 }

@@ -1,4 +1,4 @@
-﻿@model ClientWebApp_MVC_.Models.FlightModels
+﻿@model ClientWebApp_MVC_.Models.BuyTicketModel
 
 @{
     ViewData["Title"] = "DetailsFlight";
@@ -49,16 +49,16 @@
 </div>
 
 <div>
-
     @using (Html.BeginForm("Buy", "Home", new { id = Model.FlightNo, price = Model.Price }))
     {
-        <label for="firstname">First name:</label><br>
-        <input type="text" id="firstname" class="form-control" required="required" name="firstname" placeholder="Emilie" size="10"><br>
-        <label for="name">Last name:</label><br>
-        <input type="text" id="name" class="form-control" required="required" name="name" placeholder="Teodoro" size="10"><br><br>
+        <label for="FullName">Name: </label><br>
+        <input type="text" id="FullName" class="form-control" required="required" name="FullName" placeholder="Emilie" size="10"><br>
+        <input type="text" id="Destination" class="form-control" required="required" name="Destination" value=" @Html.ValueFor(model => model.Destination)" hidden="hidden" size="10"><br>
+        <input type="text" id="Date" class="form-control" required="required" name="Date" value=" @Html.ValueFor(model => model.Date)" hidden="hidden" size="10"><br>
+        <input type="text" id="FlightNo" class="form-control" required="required" name="FlightNo" value=" @Html.ValueFor(model => model.FlightNo)" hidden="hidden" size="10"><br>
 
+        <button class="button" style="vertical-align:middle" onclick="@("window.location.href='" + @Url.Action("Buy", "Home") + "'");"><span>Buy this ticket </span></button>
 
-        <button type="submit" class="btn-primary">Buy this ticket</button>
 
     }
 
