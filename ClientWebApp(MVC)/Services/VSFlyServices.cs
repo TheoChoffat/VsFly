@@ -85,44 +85,44 @@ namespace ClientWebApp_MVC_.Services
             }
         }
 
-        [HttpPut]
-        public Boolean UpdateFlight(FlightModels flightModels)
-        {
-            var uri = _baseuri + "Flights/UpdateFlight" + flightModels;
+        //[HttpPut]
+        //public Boolean UpdateFlight(FlightModels flightModels)
+        //{
+        //    var uri = _baseuri + "Flights/UpdateFlight" + flightModels;
 
-            var postTask = _client.PutAsJsonAsync<FlightModels>(uri, flightModels);
-            postTask.Wait();
+        //    var postTask = _client.PutAsJsonAsync<FlightModels>(uri, flightModels);
+        //    postTask.Wait();
 
-            var result = postTask.Result;
-            if (result.IsSuccessStatusCode)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        //    var result = postTask.Result;
+        //    if (result.IsSuccessStatusCode)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
 
-        }
+        //}
 
-            [HttpPost]
-            public Boolean CreateFlight(FlightModels flightModels)
-            {
-                var uri = _baseuri + "Flights/";
+        //[HttpPost]
+        //    public Boolean CreateFlight(FlightModels flightModels)
+        //    {
+        //        var uri = _baseuri + "Flights/";
 
-                var postTask = _client.PostAsJsonAsync<FlightModels>(uri, flightModels);
-                postTask.Wait();
+        //        var postTask = _client.PostAsJsonAsync<FlightModels>(uri, flightModels);
+        //        postTask.Wait();
 
-                var result = postTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+        //        var result = postTask.Result;
+        //        if (result.IsSuccessStatusCode)
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
 
         }
 }

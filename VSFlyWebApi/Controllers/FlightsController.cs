@@ -92,36 +92,36 @@ namespace VSFlyWebApi.Controllers
             return Price;
         }
 
-        // PUT: api/Flights/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("UpdateFlight/{id}")]
-        public async Task<IActionResult> PutFlight(int id, FlightModels flight)
-        {
-            if (id != flight.FlightNo)
-            {
-                return BadRequest();
-            }
+        //// PUT: api/Flights/5
+        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPut("UpdateFlight/{id}")]
+        //public async Task<IActionResult> PutFlight(int id, FlightModels flight)
+        //{
+        //    if (id != flight.FlightNo)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(flight).State = EntityState.Modified;
+        //    _context.Entry(flight).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FlightExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!FlightExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         //POST: api/Flights
         //To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -136,28 +136,27 @@ namespace VSFlyWebApi.Controllers
            
         }
 
-        //DELETE: api/Flights/5
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFlight(int id)
-        {
-            var flight = await _context.Flight.FindAsync(id);
-            if (flight == null)
-            {
-                return NotFound();
-            }
+    //    [HttpDelete("{id}")]
+    //    public async Task<IActionResult> DeleteFlight(int id)
+    //    {
+    //        var flight = await _context.Flight.FindAsync(id);
+    //        if (flight == null)
+    //        {
+    //            return NotFound();
+    //        }
 
-            _context.Flight.Remove(flight);
-            await _context.SaveChangesAsync();
+    //        _context.Flight.Remove(flight);
+    //        await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+    //        return NoContent();
+    //    }
 
-        private bool FlightExists(int id)
-        {
-            return _context.Flight.Any(e => e.FlightNo == id);
-        }
+    //    private bool FlightExists(int id)
+    //    {
+    //        return _context.Flight.Any(e => e.FlightNo == id);
+    //    }
 
 
-    }
+    //}
 }

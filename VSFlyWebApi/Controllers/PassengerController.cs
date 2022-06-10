@@ -19,6 +19,7 @@ namespace VSFlyWebApi.Controllers
             _context = context;
         }
 
+        [HttpPost]
         public async Task<ActionResult<PassengerModel>> CreatePassenger(PassengerModel newPassenger)
         {
             if (!ModelState.IsValid)
@@ -37,7 +38,8 @@ namespace VSFlyWebApi.Controllers
             return newPassenger;
           
          }
-        
+
+       
 
         [HttpGet("{id}")]
         public async Task<ActionResult<PassengerModel>> GetPassenger(int id)
