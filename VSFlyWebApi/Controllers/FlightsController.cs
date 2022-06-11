@@ -22,6 +22,21 @@ namespace VSFlyWebApi.Controllers
             _context = context;
         }
 
+        [HttpPost("Create")]
+        public async Task<ActionResult<FlightModels>> CreateFlight(FlightModels newFlight)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
+
+            Flight flight1 = newFlight.ConvertToFlight();
+
+            _context.Flight.Add(flight1);
+
+            return newFlight;
+
+        }
+
+
 
         [HttpGet("All")]
         public async Task<ActionResult<IEnumerable<FlightModels>>> GetFlights()
@@ -92,19 +107,7 @@ namespace VSFlyWebApi.Controllers
             return Price;
         }
 
-        [HttpPost("Create")]
-        public async Task<ActionResult<FlightModels>> CreateFlight(FlightModels newFlight)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest("Invalid data.");
-
-            Flight flight1 = newFlight.ConvertToFlight();
-
-            _context.Flight.Add(flight1);
-
-            return newFlight;
-
-        }
+        
 
 
 

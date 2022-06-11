@@ -37,7 +37,7 @@ namespace ClientWebApp_MVC_.Controllers
             return View(data);
         }
 
-        public async Task<IActionResult> BookingList(BuyTicketModel buyTicketModel)
+        /*public async Task<IActionResult> BookingList(BuyTicketModel buyTicketModel)
         {
            if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace ClientWebApp_MVC_.Controllers
                     }
                 }
             }
-        }
+        }*/
 
         public async Task<IActionResult> Details(int id)
         {  
