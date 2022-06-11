@@ -21,8 +21,8 @@ namespace VSFly
         public double Price { get; set; }
         public int Seats { get; set; }
 
-        [ForeignKey("PilotId")]
-        public virtual Pilot pilot { get; set; }
+        //[ForeignKey("PilotId")]
+        //public virtual Pilot pilot { get; set; }
         public int PilotId { get; set; }
 
         public virtual ICollection<Booking> BookingSet { get; set; }

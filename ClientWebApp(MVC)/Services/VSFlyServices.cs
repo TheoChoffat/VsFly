@@ -66,10 +66,10 @@ namespace ClientWebApp_MVC_.Services
             return passengerList;
         }
 
-        public async Task<IEnumerable<PassengerModel>> GetPassengerByFirstname(string firstname)
+        public async Task<IEnumerable<PassengerModel>> GetPassengerByName(string firstname, string surname)
         {
 
-            var uri = _baseuri + "Passenger/Firstname/" + firstname;
+            var uri = _baseuri + "Passenger/Name/" + firstname + "" + surname;
 
             var responseString = await _client.GetStringAsync(uri);
             var passengerFirstname = JsonConvert.DeserializeObject<IEnumerable<PassengerModel>>(responseString);
@@ -80,9 +80,28 @@ namespace ClientWebApp_MVC_.Services
         [HttpPost]
         public Boolean CreatePassenger(PassengerModel passengerModels)
         {
-            var uri = _baseuri + "Passenger/";
+            var uri = _baseuri + "Create/Passenger/";
 
             var postTask = _client.PostAsJsonAsync<PassengerModel>(uri, passengerModels);
+            postTask.Wait();
+
+            var result = postTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        [HttpPost]
+        public Boolean PostBooking (BookingModel bookingModel)
+        {
+            var uri = _baseuri + "Booking/createBooking";
+
+            var postTask = _client.PostAsJsonAsync<BookingModel>(uri, bookingModel);
             postTask.Wait();
 
             var result = postTask.Result;
@@ -100,7 +119,7 @@ namespace ClientWebApp_MVC_.Services
         [HttpPost]
         public Boolean CreateFlight(FlightModels flightModels)
         {
-            var uri = _baseuri + "Flights/";
+            var uri = _baseuri + "Create/Flight/";
 
             var postTask = _client.PostAsJsonAsync<FlightModels>(uri, flightModels);
             postTask.Wait();

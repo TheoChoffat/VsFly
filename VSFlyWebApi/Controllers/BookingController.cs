@@ -57,14 +57,18 @@ namespace VSFlyWebApi.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<ActionResult<BookingModel>> PostBooking(BookingModel booking)
+        [HttpPost("createBooking")]
+        public async Task<ActionResult<BookingModel>> PostBooking(BookingModel newBooking)
         {
-            Booking booking1 = booking.ConvertToBooking();
-            _context.Booking.Add(booking1);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
 
-            return CreatedAtAction(nameof(GetBooking), new { id = booking.FlightNo }, booking);
+            Booking book1 = newBooking.ConvertToBooking();
+
+            _context.Booking.Add(book1);
+
+            return newBooking;
+
         }
 
 

@@ -13,8 +13,10 @@ namespace ClientWebApp_MVC_.Services
         public Task<PassengerModel> GetPassenger(int id);
         public Task<IEnumerable<PassengerModel>> GetPassengers();
         public Boolean CreatePassenger(PassengerModel passengerModels);
+        public Boolean CreateFlight(FlightModels flightModels);
+        public Boolean PostBooking(BookingModel bookingModel);
         public Task<FlightModels> GetFlight(int id);
-        public Task<IEnumerable<PassengerModel>> GetPassengerByFirstname(string firstname);
+        public Task<IEnumerable<PassengerModel>> GetPassengerByName(string firstname, string surname);
     }
 }
 

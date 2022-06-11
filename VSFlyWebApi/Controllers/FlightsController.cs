@@ -92,20 +92,34 @@ namespace VSFlyWebApi.Controllers
             return Price;
         }
 
-       
-
-        //POST: api/Flights
-        //To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<FlightModels>> PostFlight(FlightModels flight)
+        [HttpPost("Create")]
+        public async Task<ActionResult<FlightModels>> CreateFlight(FlightModels newFlight)
         {
-            Flight flight1 = flight.ConvertToFlight();
-            _context.Flight.Add(flight1);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
 
-            return CreatedAtAction(nameof(GetFlight), new { id = flight.FlightNo }, flight);
+            Flight flight1 = newFlight.ConvertToFlight();
+
+            _context.Flight.Add(flight1);
+
+            return newFlight;
 
         }
+
+
+
+        ////POST: api/Flights
+        ////To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost]
+        //public async Task<ActionResult<FlightModels>> PostFlight(FlightModels flight)
+        //{
+        //    Flight flight1 = flight.ConvertToFlight();
+        //    _context.Flight.Add(flight1);
+        //    await _context.SaveChangesAsync();
+
+        //    return CreatedAtAction(nameof(GetFlight), new { id = flight.FlightNo }, flight);
+
+        //}
 
     }
 }

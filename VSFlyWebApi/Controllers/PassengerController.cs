@@ -19,7 +19,8 @@ namespace VSFlyWebApi.Controllers
             _context = context;
         }
 
-        [HttpPost]
+
+        [HttpPost("Create")]
         public async Task<ActionResult<PassengerModel>> CreatePassenger(PassengerModel newPassenger)
         {
             if (!ModelState.IsValid)
@@ -65,10 +66,10 @@ namespace VSFlyWebApi.Controllers
         }
 
 
-        [HttpGet("Firstname/{firstname}")]
-        public async Task<ActionResult<PassengerModel>> GetPassengerByFirstname(string firstname)
+        [HttpGet("Name/{firstname}")]
+        public async Task<ActionResult<PassengerModel>> GetPassengerByName(string firstname, string surname)
         {
-            var passenger = await _context.Passenger.Where(p=>p.Firstname == firstname).FirstOrDefaultAsync();
+            var passenger = await _context.Passenger.Where(p=>p.Firstname == firstname && p.Surname == surname).FirstOrDefaultAsync();
 
             if (passenger == null)
             {

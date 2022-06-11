@@ -78,7 +78,6 @@ namespace ClientWebApp_MVC_.Controllers
 
         public async Task<IActionResult> Details(int id)
         {  
-
             {
                 if (id == -1)
                 {
