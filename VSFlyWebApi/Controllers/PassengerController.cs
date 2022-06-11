@@ -26,14 +26,8 @@ namespace VSFlyWebApi.Controllers
                 return BadRequest("Invalid data.");
 
             Passenger passenger1 = newPassenger.ConvertToPassenger();
+
             _context.Passenger.Add(passenger1);
-
-
-            passenger1.Surname = newPassenger.Surname;
-            passenger1.Firstname = newPassenger.Firstname;
-            passenger1.CustomerSince = newPassenger.CustomerSince;
-            passenger1.Status = newPassenger.Status;
-
 
             return newPassenger;
           
@@ -68,6 +62,23 @@ namespace VSFlyWebApi.Controllers
                 passengerMList.Add(BM);
             }
             return passengerMList;
+        }
+
+
+        [HttpGet("Firstname/{firstname}")]
+        public async Task<ActionResult<PassengerModel>> GetPassengerByFirstname(string firstname)
+        {
+            var passenger = await _context.Passenger.Where(p=>p.Firstname == firstname).FirstOrDefaultAsync();
+
+            if (passenger == null)
+            {
+                return NotFound();
+            }
+
+
+            PassengerModel model = passenger.ConvertToPassengerM();
+
+            return model;
         }
 
         [HttpPost]

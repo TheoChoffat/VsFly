@@ -49,9 +49,13 @@ namespace VSFlyWebApi.Controllers
                 return NotFound();
             }
 
+            
+            
+
             BookingModel model = booking.ConvertToBookingM();
             return model;
         }
+
 
         [HttpPost]
         public async Task<ActionResult<BookingModel>> PostBooking(BookingModel booking)

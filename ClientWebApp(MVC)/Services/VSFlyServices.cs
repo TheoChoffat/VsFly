@@ -66,6 +66,17 @@ namespace ClientWebApp_MVC_.Services
             return passengerList;
         }
 
+        public async Task<IEnumerable<PassengerModel>> GetPassengerByFirstname(string firstname)
+        {
+
+            var uri = _baseuri + "Passenger/Firstname/" + firstname;
+
+            var responseString = await _client.GetStringAsync(uri);
+            var passengerFirstname = JsonConvert.DeserializeObject<IEnumerable<PassengerModel>>(responseString);
+            return passengerFirstname;
+        }
+
+
         [HttpPost]
         public Boolean CreatePassenger(PassengerModel passengerModels)
         {

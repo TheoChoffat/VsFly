@@ -53,8 +53,9 @@ namespace VSFlyWebApi.Extensions
             b.Flight = bm.Flight;
             b.Flight.Destination = bm.Flight.Destination;
             b.Passenger = bm.Passenger;
-            b.Passenger.Surname = bm.Passenger.Surname;
+            b.Passenger.Firstname = bm.Passenger.Firstname;
             b.PassengerId = bm.PassengerId;
+  
           
             return b;
         }
