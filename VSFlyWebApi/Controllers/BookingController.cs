@@ -30,12 +30,20 @@ namespace VSFlyWebApi.Controllers
             Booking book1 = newBooking.ConvertToBooking();
 
             _context.Booking.Add(book1);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                return null;
+            }
 
-            return newBooking;
+            return CreatedAtAction("GetBooking", new { id = newBooking }, newBooking);
         }
 
 
-            [HttpGet("All")]
+        [HttpGet("All")]
         public async Task<ActionResult<IEnumerable<BookingModel>>> GetBookings()
         {
 

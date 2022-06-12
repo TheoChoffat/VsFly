@@ -24,7 +24,7 @@ namespace ClientWebApp_MVC_.Services
         public Task<PassengerModel> GetPassenger(int id);
         public Task<IEnumerable<PassengerModel>> GetPassengers();
         public Boolean CreatePassenger(PassengerModel passengerModels);
-        public Task<IEnumerable<PassengerModel>> GetPassengerByName(string firstname, string surname);
+        public Task<PassengerModel> GetPassengerByName(string firstname, string surname);
         public Boolean DeletePassenger(int id);
 
 

@@ -131,7 +131,7 @@ namespace ClientWebApp_MVC_.Services
         //PASSENGER SECTION
         public async Task<PassengerModel> GetPassenger(int id)
         {
-            var uri = "https://localhost:44381/" + "Passenger/" + id;
+            var uri = _baseuri + "Passenger/" + id;
             var responseString = await _client.GetStringAsync(uri);
             var passenger = JsonConvert.DeserializeObject<PassengerModel>(responseString);
 
@@ -140,20 +140,20 @@ namespace ClientWebApp_MVC_.Services
 
         public async Task<IEnumerable<PassengerModel>> GetPassengers()
         {
-            var uri = "https://localhost:44381/" + "Passenger/All";
+            var uri = _baseuri + "Passenger/All";
 
             var responseString = await _client.GetStringAsync(uri);
             var passengerList = JsonConvert.DeserializeObject<IEnumerable<PassengerModel>>(responseString);
             return passengerList;
         }
 
-        public async Task<IEnumerable<PassengerModel>> GetPassengerByName(string firstname, string surname)
+        public async Task<PassengerModel> GetPassengerByName(string firstname, string surname)
         {
 
-            var uri = "https://localhost:44381/" + "Passenger/Name/" + firstname + "" + surname;
+            var uri = _baseuri + "Passenger/Name/" + firstname + "/" + surname;
 
             var responseString = await _client.GetStringAsync(uri);
-            var passengerFirstname = JsonConvert.DeserializeObject<IEnumerable<PassengerModel>>(responseString);
+            var passengerFirstname = JsonConvert.DeserializeObject<PassengerModel>(responseString);
             return passengerFirstname;
         }
 
@@ -161,9 +161,8 @@ namespace ClientWebApp_MVC_.Services
         [HttpPost]
         public Boolean CreatePassenger(PassengerModel passengerModels)
         {
-            var uri = "https://localhost:44381/" + "Create";
-
-            var postTask = _client.PostAsJsonAsync<PassengerModel>(uri, passengerModels);
+            var uri = _baseuri + "Passenger/Create";
+            var postTask = _client.PostAsJsonAsync(uri, passengerModels);
             postTask.Wait();
 
             var result = postTask.Result;
@@ -180,7 +179,7 @@ namespace ClientWebApp_MVC_.Services
         [HttpDelete]
         public Boolean DeletePassenger(int id)
         {
-            var uri = "https://localhost:44381/" + "Delete" + id;
+            var uri = _baseuri + "Delete" + id;
 
             var postTask = _client.PostAsJsonAsync(uri, id);
             postTask.Wait();

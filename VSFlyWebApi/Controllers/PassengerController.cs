@@ -10,6 +10,8 @@ using VSFlyWebApi.Models;
 
 namespace VSFlyWebApi.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class PassengerController : ControllerBase
     {
         private readonly WWWContext _context;
@@ -27,12 +29,20 @@ namespace VSFlyWebApi.Controllers
                 return BadRequest("Invalid data.");
 
             Passenger passenger1 = newPassenger.ConvertToPassenger();
-
             _context.Passenger.Add(passenger1);
 
-            return newPassenger;
-          
-         }
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                return null;
+            }
+
+            return CreatedAtAction("GetPassenger", new { id = newPassenger.PassengerId }, newPassenger);
+        }
+       
 
         [HttpDelete("Delete{id}")]
         public async Task<ActionResult<PassengerModel>> DeletePassenger(int id)
@@ -77,14 +87,14 @@ namespace VSFlyWebApi.Controllers
         }
 
 
-        [HttpGet("Name/{firstname}")]
+        [HttpGet("Name/{firstname}/{surname}")]
         public async Task<ActionResult<PassengerModel>> GetPassengerByName(string firstname, string surname)
         {
             var passenger = await _context.Passenger.Where(p=>p.Firstname == firstname && p.Surname == surname).FirstOrDefaultAsync();
 
             if (passenger == null)
             {
-                return NotFound();
+                return null;
             }
 
 

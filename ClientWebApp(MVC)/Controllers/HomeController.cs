@@ -149,11 +149,15 @@ namespace ClientWebApp_MVC_.Controllers
             {
                 passengerModel.CustomerSince = DateTime.Now;
                 bool PassengerCreation = _vsFly.CreatePassenger(passengerModel);
+                if (PassengerCreation)
+                {
+                    passenger = await _vsFly.GetPassengerByName(passengerModel.Firstname, passengerModel.Surname);
+                }
             }
 
             BookingModel newBooking = new BookingModel();
             newBooking.FlightNo = flightModel.FlightNo;
-            newBooking.PassengerId = passengerModel.PassengerId;
+            newBooking.PassengerId = passenger.PassengerId;
             bool BookCreation = _vsFly.CreateBooking(newBooking);
             return View(flightModel);
         }
