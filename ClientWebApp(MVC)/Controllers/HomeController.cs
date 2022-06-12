@@ -37,44 +37,43 @@ namespace ClientWebApp_MVC_.Controllers
             return View(data);
         }
 
-        /*public async Task<IActionResult> BookingList(BuyTicketModel buyTicketModel)
+        public async Task<IActionResult> BookingList()
         {
-           if (ModelState.IsValid)
+            var bookings = await _vsFly.GetBookings();
+            var flights = await _vsFly.GetFlights();
+            var passengers = await _vsFly.GetPassengers();
+
+            var listFlights = flights.ToList();
+            var listBookings = bookings.ToList();
+            var listPassengers = passengers.ToList();
+
+            foreach(var li in listBookings)
             {
-                ViewBag.FullName = buyTicketModel.FullName;
-                ViewBag.Destination = buyTicketModel.Destination;
-                ViewBag.Date = buyTicketModel.Date;
-                ViewBag.Price = buyTicketModel.Price;
-                ViewBag.Seats = buyTicketModel.Seats;
-                ViewBag.SeatsAvailable = buyTicketModel.SeatsAvailable;
-
-                List<BuyTicketModel> buyTicketM = new List<BuyTicketModel>();
-                var passenger = await _vsFly.GetPassengers();
-                Boolean Exists = false;
-                
-                for(int i=0; i < passenger.Count(); i++)
+                int id = li.FlightNo -1;
+                if(id < listFlights.Count)
                 {
-                    if (buyTicketModel.FullName == passenger.ElementAt(i).Firstname)
-                    {
-                        Exists = true;
-
-                        buyTicketModel.FullName = passenger.ElementAt(i).Firstname;
-                        ViewBag.Exists = true;
-                    }
+                    li.Destination = listFlights[id].Destination;
                 }
-
-                //Creation of the passenger
-                if (!Exists)
+                else
                 {
-                    var status = _vsFly.CreatePassenger(buyTicketModel.Passenger);
-                    if (status)
-                    {
-                        buyTicketModel.Passenger = passenger;
-                        ViewBag.Exists = false;
-                    }
+                    li.Destination = listFlights.Last<FlightModels>().Destination;
+                }
+                
+                int idp = li.PassengerId -1;
+                if(idp < listPassengers.Count)
+                {
+                    li.FirstName = listPassengers[idp].Firstname;
+                    li.LastName = listPassengers[idp].Surname;
+                }
+                else
+                {
+                    li.FirstName = listPassengers.Last<PassengerModel>().Firstname;
+                    li.LastName = listPassengers.Last<PassengerModel>().Surname;
                 }
             }
-        }*/
+            return View(listBookings);
+        }
+
 
         public async Task<IActionResult> Details(int id)
         {  
@@ -97,7 +96,8 @@ namespace ClientWebApp_MVC_.Controllers
                 myBook.Price = data.Price;
                 myBook.Seats = data.Seats;
                 myBook.SeatsAvailable = data.SeatsAvailable;
-
+                myBook.TotalSalePrice = data.TotalSalePrice;
+                ViewBag.Message = myBook.TotalSalePrice / (myBook.Seats - myBook.SeatsAvailable);
                 return View(myBook);
             }
 
@@ -137,34 +137,41 @@ namespace ClientWebApp_MVC_.Controllers
                 flightModel.Price = Double.Parse(collection["Price"]);
                 flightModel.Seats = Int32.Parse(collection["Seats"]);
                 flightModel.SeatsAvailable = Int32.Parse(collection["SeatsAvailable"]);
+                flightModel.TotalSalePrice = Double.Parse(collection["TotalSalePrice"]);
                 passengerModel.Firstname = collection["Name"];
                 passengerModel.Surname = collection["Surname"];
-            }
 
-            if(flightModel.SeatsAvailable <= 0)
-            {
-                return View("~/Views/SpecificView.cshtml");
-            }
-            
-            var passenger = await _vsFly.GetPassengerByName(passengerModel.Firstname, passengerModel.Surname);
-            
-            if(passenger == null)
-            {
-                passengerModel.CustomerSince = DateTime.Now;
-                bool PassengerCreation = _vsFly.CreatePassenger(passengerModel);
-                if (PassengerCreation)
+                if (flightModel.SeatsAvailable <= 0)
                 {
-                    passenger = await _vsFly.GetPassengerByName(passengerModel.Firstname, passengerModel.Surname);
+                    return View("~/Views/SpecificView.cshtml");
                 }
+
+                var passenger = await _vsFly.GetPassengerByName(passengerModel.Firstname, passengerModel.Surname);
+
+                if (passenger == null)
+                {
+                    passengerModel.CustomerSince = DateTime.Now;
+                    bool PassengerCreation = _vsFly.CreatePassenger(passengerModel);
+                    if (PassengerCreation)
+                    {
+                        passenger = await _vsFly.GetPassengerByName(passengerModel.Firstname, passengerModel.Surname);
+                    }
+                }
+
+                BookingModel newBooking = new BookingModel();
+                newBooking.FlightNo = flightModel.FlightNo;
+                newBooking.PassengerId = passenger.PassengerId;
+                newBooking.BuyPrice = flightModel.Price;
+                bool BookCreation = _vsFly.CreateBooking(newBooking);
+
+                flightModel.SeatsAvailable -= 1;
+                flightModel.TotalSalePrice += flightModel.Price;
+                bool ModifyFlight = _vsFly.ModifyFlight(flightModel);
+
+                ViewBag.Message = flightModel.TotalSalePrice / (flightModel.Seats - flightModel.SeatsAvailable);
             }
 
-            BookingModel newBooking = new BookingModel();
-            newBooking.FlightNo = flightModel.FlightNo;
-            newBooking.PassengerId = passenger.PassengerId;
-            bool BookCreation = _vsFly.CreateBooking(newBooking);
-
-            flightModel.SeatsAvailable -= 1;
-            bool ModifyFlight = _vsFly.ModifyFlight(flightModel);
+            
             
             return View(flightModel);
         }

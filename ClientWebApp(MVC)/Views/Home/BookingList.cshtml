@@ -10,29 +10,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Passenger.Surname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Flight.Destination)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.FlightNo)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PassengerId)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuyPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Passenger.Surname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Flight.Destination)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FlightNo)
             </td>
@@ -40,7 +39,16 @@
                 @Html.DisplayFor(modelItem => item.PassengerId)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.FlightNo">Details</a>
+                @Html.DisplayFor(modelItem => item.BuyPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
             </td>
         </tr>
 }

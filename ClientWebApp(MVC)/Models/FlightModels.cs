@@ -16,6 +16,7 @@ namespace ClientWebApp_MVC_.Models
             public int Seats { get; set; }
             public int SeatsAvailable { get; set; }
             public DateTime Date { get; set; }
-        }
+            public double TotalSalePrice { get; set; }
+    }
     }
 

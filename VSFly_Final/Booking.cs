@@ -14,6 +14,7 @@ namespace VSFly
         [Key]
         public int FlightNo { get; set; }
         public int PassengerId { get; set; }
+        public double BuyPrice { get; set; }
 
     }
 }

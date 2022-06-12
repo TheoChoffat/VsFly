@@ -53,6 +53,7 @@ namespace VSFlyWebApi.Controllers
                 existingFlight.SeatsAvailable = flight1.SeatsAvailable;
                 existingFlight.Price = flight1.Price;
                 existingFlight.Seats = flight1.Seats;
+                existingFlight.TotalSalePrice = flight1.TotalSalePrice;
 
                 try
                 {

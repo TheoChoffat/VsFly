@@ -45,6 +45,18 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Date)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalSalePrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalSalePrice)
+        </dd>
+        <dt class="col-sm-2">
+            Average price : 
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.Message
+        </dd>
     </dl>
 </div>
 
@@ -59,7 +71,7 @@
         <input type="text" id="Name" class="form-control" required="required" name="Name" placeholder="Emilie" size="10"><br>
         <label for="SurName">Surname:</label>
         <input type="text" id="SurName" class="form-control" required="required" name="Surname" placeholder="Choffat" size="10"><br>
-        
+
         // FlightModel
         <input type="text" id="Destination" class="form-control" required="required" name="Destination" value=" @Html.ValueFor(model => model.Destination)" hidden="hidden" size="10"><br>
         <input type="text" id="Departure" class="form-control" required="required" name="Departure" value=" @Html.ValueFor(model => model.Destination)" hidden="hidden" size="10"><br>
@@ -68,6 +80,7 @@
         <input type="text" id="Price" class="form-control" required="required" name="Price" value=" @Html.ValueFor(model => model.Price)" hidden="hidden" size="10"><br>
         <input type="text" id="Seats" class="form-control" required="required" name="Seats" value=" @Html.ValueFor(model => model.Seats)" hidden="hidden" size="10"><br>
         <input type="text" id="SeatsAvailable" class="form-control" required="required" name="SeatsAvailable" value=" @Html.ValueFor(model => model.SeatsAvailable)" hidden="hidden" size="10"><br>
+        <input type="text" id="TotalSalePrice" class="form-control" required="required" name="TotalSalePrice" value=" @Html.ValueFor(model => model.TotalSalePrice)" hidden="hidden" size="10"><br>
 
         <button class="button" style="vertical-align:middle" onclick="@("window.location.href='" + @Url.Action("Buy", "Home") + "'");"><span>Buy this ticket </span></button>
 

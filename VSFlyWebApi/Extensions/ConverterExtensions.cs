@@ -18,6 +18,7 @@ namespace VSFlyWebApi.Extensions
             fm.SeatsAvailable = f.SeatsAvailable;
             fm.Date = f.Date;
             fm.Price = f.Price;
+            fm.TotalSalePrice = f.TotalSalePrice;
             return fm;
         }
 
@@ -32,6 +33,7 @@ namespace VSFlyWebApi.Extensions
             f.SeatsAvailable = fm.SeatsAvailable;
             f.Date = fm.Date;
             f.Price = fm.Price;
+            f.TotalSalePrice = fm.TotalSalePrice;
             return f;
         }
 
@@ -40,7 +42,8 @@ namespace VSFlyWebApi.Extensions
             Models.BookingModel bm = new Models.BookingModel();
             bm.FlightNo = bk.FlightNo;
             bm.PassengerId = bk.PassengerId;
-           
+            bm.BuyPrice = bk.BuyPrice;
+
             return bm;
         }
 
@@ -49,7 +52,7 @@ namespace VSFlyWebApi.Extensions
             VSFly.Booking b = new VSFly.Booking();
             b.FlightNo = bm.FlightNo;
             b.PassengerId = bm.PassengerId;
-  
+            b.BuyPrice = bm.BuyPrice;
           
             return b;
         }
