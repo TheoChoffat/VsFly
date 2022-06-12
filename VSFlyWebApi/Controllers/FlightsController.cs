@@ -100,6 +100,8 @@ namespace VSFlyWebApi.Controllers
             return model;
         }
 
+
+
         private double getFlightPrice(int Seats, int SeatsAvailable, DateTime Date, double Price)
         {
 
@@ -131,8 +133,6 @@ namespace VSFlyWebApi.Controllers
 
             return Price;
         }
-
-        
 
 
 
