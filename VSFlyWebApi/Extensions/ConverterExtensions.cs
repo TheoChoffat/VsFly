@@ -28,8 +28,8 @@ namespace VSFlyWebApi.Extensions
             f.FlightNo = fm.FlightNo;
             f.Departure = fm.Departure;
             f.Destination = fm.Destination;
-            fm.Seats = f.Seats;
-            fm.SeatsAvailable = f.SeatsAvailable;
+            f.Seats = fm.Seats;
+            f.SeatsAvailable = fm.SeatsAvailable;
             f.Date = fm.Date;
             f.Price = fm.Price;
             return f;

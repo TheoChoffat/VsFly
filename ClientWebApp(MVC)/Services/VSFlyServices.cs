@@ -65,7 +65,7 @@ namespace ClientWebApp_MVC_.Services
         {
             var uri = _baseuri + "Flights/Modify";
 
-            var postTask = _client.PostAsJsonAsync<FlightModels>(uri, flightModels);
+            var postTask = _client.PutAsJsonAsync<FlightModels>(uri, flightModels);
             postTask.Wait();
 
             var result = postTask.Result;

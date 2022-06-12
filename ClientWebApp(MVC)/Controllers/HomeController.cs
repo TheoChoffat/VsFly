@@ -137,10 +137,13 @@ namespace ClientWebApp_MVC_.Controllers
                 flightModel.Price = Double.Parse(collection["Price"]);
                 flightModel.Seats = Int32.Parse(collection["Seats"]);
                 flightModel.SeatsAvailable = Int32.Parse(collection["SeatsAvailable"]);
-              
-
                 passengerModel.Firstname = collection["Name"];
                 passengerModel.Surname = collection["Surname"];
+            }
+
+            if(flightModel.SeatsAvailable <= 0)
+            {
+                return View("~/Views/SpecificView.cshtml");
             }
             
             var passenger = await _vsFly.GetPassengerByName(passengerModel.Firstname, passengerModel.Surname);
@@ -159,6 +162,10 @@ namespace ClientWebApp_MVC_.Controllers
             newBooking.FlightNo = flightModel.FlightNo;
             newBooking.PassengerId = passenger.PassengerId;
             bool BookCreation = _vsFly.CreateBooking(newBooking);
+
+            flightModel.SeatsAvailable -= 1;
+            bool ModifyFlight = _vsFly.ModifyFlight(flightModel);
+            
             return View(flightModel);
         }
     }

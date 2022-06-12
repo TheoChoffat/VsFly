@@ -42,18 +42,26 @@ namespace VSFlyWebApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
 
+
             var existingFlight = _context.Flight.Where(f => f.FlightNo == newFlight.FlightNo).FirstOrDefault();
-
-            if(existingFlight != null)
+            Flight flight1 = newFlight.ConvertToFlight();
+            if (existingFlight != null)
             {
-                existingFlight.Date = newFlight.Date;
-                existingFlight.Departure = newFlight.Departure;
-                existingFlight.Destination = newFlight.Destination;
-                existingFlight.SeatsAvailable = newFlight.SeatsAvailable;
-                existingFlight.Price = newFlight.Price;
-                existingFlight.Seats = newFlight.Seats;
+                existingFlight.Date = flight1.Date;
+                existingFlight.Departure = flight1.Departure;
+                existingFlight.Destination = flight1.Destination;
+                existingFlight.SeatsAvailable = flight1.SeatsAvailable;
+                existingFlight.Price = flight1.Price;
+                existingFlight.Seats = flight1.Seats;
 
-                _context.SaveChanges();
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (DbUpdateException)
+                {
+                    return null;
+                }
             }
             else
             {
