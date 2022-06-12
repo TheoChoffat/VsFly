@@ -1,4 +1,4 @@
-﻿@model ClientWebApp_MVC_.Models.BuyTicketModel
+﻿@model ClientWebApp_MVC_.Models.FlightModels
 
 @{
     ViewData["Title"] = "DetailsFlight";
@@ -48,14 +48,26 @@
     </dl>
 </div>
 
+
+<h1>Want a reservation ? Fill the inputs below</h1>
+<hr />
 <div>
     @using (Html.BeginForm("Buy", "Home", new { id = Model.FlightNo, price = Model.Price }))
     {
-        <label for="FullName">Name: </label><br>
-        <input type="text" id="FullName" class="form-control" required="required" name="FullName" placeholder="Emilie" size="10"><br>
+        // PassengerModel
+        <label for="Name">Name: </label><br>
+        <input type="text" id="Name" class="form-control" required="required" name="Name" placeholder="Emilie" size="10"><br>
+        <label for="SurName">Surname:</label>
+        <input type="text" id="SurName" class="form-control" required="required" name="Surname" placeholder="Choffat" size="10"><br>
+        
+        // FlightModel
         <input type="text" id="Destination" class="form-control" required="required" name="Destination" value=" @Html.ValueFor(model => model.Destination)" hidden="hidden" size="10"><br>
+        <input type="text" id="Departure" class="form-control" required="required" name="Departure" value=" @Html.ValueFor(model => model.Destination)" hidden="hidden" size="10"><br>
         <input type="text" id="Date" class="form-control" required="required" name="Date" value=" @Html.ValueFor(model => model.Date)" hidden="hidden" size="10"><br>
         <input type="text" id="FlightNo" class="form-control" required="required" name="FlightNo" value=" @Html.ValueFor(model => model.FlightNo)" hidden="hidden" size="10"><br>
+        <input type="text" id="Price" class="form-control" required="required" name="Price" value=" @Html.ValueFor(model => model.Price)" hidden="hidden" size="10"><br>
+        <input type="text" id="Seats" class="form-control" required="required" name="Seats" value=" @Html.ValueFor(model => model.Seats)" hidden="hidden" size="10"><br>
+        <input type="text" id="SeatsAvailable" class="form-control" required="required" name="SeatsAvailable" value=" @Html.ValueFor(model => model.SeatsAvailable)" hidden="hidden" size="10"><br>
 
         <button class="button" style="vertical-align:middle" onclick="@("window.location.href='" + @Url.Action("Buy", "Home") + "'");"><span>Buy this ticket </span></button>
 

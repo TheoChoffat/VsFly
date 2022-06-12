@@ -21,8 +21,21 @@ namespace VSFlyWebApi.Controllers
             _context = context;
         }
 
+        [HttpPost("Create")]
+        public async Task<ActionResult<BookingModel>> PostBooking(BookingModel newBooking)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
 
-        [HttpGet("All")]
+            Booking book1 = newBooking.ConvertToBooking();
+
+            _context.Booking.Add(book1);
+
+            return newBooking;
+        }
+
+
+            [HttpGet("All")]
         public async Task<ActionResult<IEnumerable<BookingModel>>> GetBookings()
         {
 
@@ -39,37 +52,36 @@ namespace VSFlyWebApi.Controllers
             return bookingMList;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<BookingModel>> GetBooking(int id)
+        [HttpGet("PlaneID/{planeID}")]
+        public async Task<ActionResult<IEnumerable<BookingModel>>> GetBookingWithPlaneId(int planeID)
         {
-            var booking = await _context.Booking.FindAsync(id);
-
-            if (booking == null)
+            var bookingList = await _context.Booking.Where(p => p.FlightNo == planeID).ToListAsync();
+            List<BookingModel> bookingMList = new List<BookingModel>();
+            foreach (Booking f in bookingList)
             {
-                return NotFound();
+                var BM = f.ConvertToBookingM();
+                bookingMList.Add(BM);
+            }
+            
+            return bookingMList;
+        }
+
+        [HttpGet("PassengerID/{passengerID}")]
+        public async Task<ActionResult<IEnumerable<BookingModel>>> GetBookingWithPassengerId(int passengerID)
+        {
+            var bookingList = await _context.Booking.Where(p => p.PassengerId == passengerID).ToListAsync();
+            List<BookingModel> bookingMList = new List<BookingModel>();
+            foreach (Booking f in bookingList)
+            {
+                var BM = f.ConvertToBookingM();
+                bookingMList.Add(BM);
             }
 
-            
-            
-
-            BookingModel model = booking.ConvertToBookingM();
-            return model;
+            return bookingMList;
         }
 
 
-        [HttpPost("createBooking")]
-        public async Task<ActionResult<BookingModel>> PostBooking(BookingModel newBooking)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest("Invalid data.");
 
-            Booking book1 = newBooking.ConvertToBooking();
-
-            _context.Booking.Add(book1);
-
-            return newBooking;
-
-        }
 
 
     }

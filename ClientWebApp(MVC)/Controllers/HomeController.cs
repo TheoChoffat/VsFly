@@ -83,33 +83,27 @@ namespace ClientWebApp_MVC_.Controllers
                 {
                     return NotFound();
                 }
-
-
                 var data = await _vsFly.GetFlight(id);
-
                 ViewBag.price = data.Price;
-
                 if (data == null)
                 {
                     return NotFound();
                 }
 
-                var myBook = new BuyTicketModel();
+                var myBook = new FlightModels();
                 myBook.FlightNo = data.FlightNo;
                 myBook.Destination = data.Destination;
                 myBook.Date = data.Date;
                 myBook.Price = data.Price;
                 myBook.Seats = data.Seats;
                 myBook.SeatsAvailable = data.SeatsAvailable;
-      
-
 
                 return View(myBook);
             }
 
         }
 
-            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -121,34 +115,47 @@ namespace ClientWebApp_MVC_.Controllers
             return View(flight);
         }
 
-
         public async Task<IActionResult> GetPassenger(int id)
         {
             var flight = await _vsFly.GetPassenger(id);
             return View(flight);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Buy(IFormCollection collection)
         {
-            BuyTicketModel ticketModel = new();
+            FlightModels flightModel = new();
+            PassengerModel passengerModel = new();
 
             if (ModelState.IsValid)
             {
-               
-                ticketModel.FullName = collection["FullName"];
-                ticketModel.Destination = collection["Destination"];
-                ticketModel.Date = Convert.ToDateTime(collection["Date"]);
-                ticketModel.FlightNo = Int32.Parse(collection["FlightNo"]);
-                ticketModel.Price = Double.Parse(collection["Price"]);
-                ticketModel.Seats = Int32.Parse(collection["Seats"]);
-                ticketModel.SeatsAvailable = Int32.Parse(collection["SeatsAvailable"]);
-               
+                flightModel.Date = Convert.ToDateTime(collection["Date"]);
+                flightModel.Departure = collection["Departure"];
+                flightModel.Destination = collection["Destination"];
+                flightModel.FlightNo = Int32.Parse(collection["FlightNo"]);
+                flightModel.Price = Double.Parse(collection["Price"]);
+                flightModel.Seats = Int32.Parse(collection["Seats"]);
+                flightModel.SeatsAvailable = Int32.Parse(collection["SeatsAvailable"]);
+              
+
+                passengerModel.Firstname = collection["Name"];
+                passengerModel.Surname = collection["Surname"];
+            }
+            
+            var passenger = await _vsFly.GetPassengerByName(passengerModel.Firstname, passengerModel.Surname);
+            
+            if(passenger == null)
+            {
+                passengerModel.CustomerSince = DateTime.Now;
+                bool PassengerCreation = _vsFly.CreatePassenger(passengerModel);
             }
 
-            return View(ticketModel);
+            BookingModel newBooking = new BookingModel();
+            newBooking.FlightNo = flightModel.FlightNo;
+            newBooking.PassengerId = passengerModel.PassengerId;
+            bool BookCreation = _vsFly.CreateBooking(newBooking);
+            return View(flightModel);
         }
     }
 

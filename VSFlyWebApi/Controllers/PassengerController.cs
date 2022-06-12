@@ -34,7 +34,18 @@ namespace VSFlyWebApi.Controllers
           
          }
 
-       
+        [HttpDelete("Delete{id}")]
+        public async Task<ActionResult<PassengerModel>> DeletePassenger(int id)
+        {
+            if (id <= 0)
+                return BadRequest("The ID is not valid.");
+
+            var passenger = _context.Passenger.Where(p => p.PassengerId == id).FirstOrDefault();
+            _context.Entry(passenger).State = EntityState.Deleted;
+            _context.SaveChanges();
+
+            return Ok();
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<PassengerModel>> GetPassenger(int id)

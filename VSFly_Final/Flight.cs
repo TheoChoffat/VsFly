@@ -21,6 +21,9 @@ namespace VSFly
         public int SeatsAvailable { get; set; }
         public DateTime Date { get; set; }
 
+        [ForeignKey("PilotId")]
+        public virtual Pilot pilot { get; set; }
+
         public virtual ICollection<Booking> BookingSet { get; set; }
 
     }

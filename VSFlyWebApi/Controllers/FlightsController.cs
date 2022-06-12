@@ -36,7 +36,32 @@ namespace VSFlyWebApi.Controllers
 
         }
 
+        [HttpPut("Modify")]
+        public async Task<ActionResult<FlightModels>> ModifyFlight(FlightModels newFlight)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
 
+            var existingFlight = _context.Flight.Where(f => f.FlightNo == newFlight.FlightNo).FirstOrDefault();
+
+            if(existingFlight != null)
+            {
+                existingFlight.Date = newFlight.Date;
+                existingFlight.Departure = newFlight.Departure;
+                existingFlight.Destination = newFlight.Destination;
+                existingFlight.SeatsAvailable = newFlight.SeatsAvailable;
+                existingFlight.Price = newFlight.Price;
+                existingFlight.Seats = newFlight.Seats;
+
+                _context.SaveChanges();
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
 
         [HttpGet("All")]
         public async Task<ActionResult<IEnumerable<FlightModels>>> GetFlights()

@@ -39,8 +39,6 @@ namespace VSFlyWebApi.Extensions
         {
             Models.BookingModel bm = new Models.BookingModel();
             bm.FlightNo = bk.FlightNo;
-            bm.Flight = bk.Flight;
-            bm.Passenger = bk.Passenger;
             bm.PassengerId = bk.PassengerId;
            
             return bm;
@@ -50,10 +48,6 @@ namespace VSFlyWebApi.Extensions
         {
             VSFly.Booking b = new VSFly.Booking();
             b.FlightNo = bm.FlightNo;
-            b.Flight = bm.Flight;
-            b.Flight.Destination = bm.Flight.Destination;
-            b.Passenger = bm.Passenger;
-            b.Passenger.Firstname = bm.Passenger.Firstname;
             b.PassengerId = bm.PassengerId;
   
           
